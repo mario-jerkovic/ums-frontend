@@ -9,5 +9,8 @@ export const LOAD_RATING_LIST_FAIL = 'LOAD_RATING_LIST_FAIL';
 
 export const HIGHLIGH_ENROLMENT = 'HIGHLIGH_ENROLMENT';
 
+export const OPEN_HELP_SIDEBAR = 'OPEN_HELP_SIDEBAR';
+export const OPEN_GENDER_STAT_SIDEBAR = 'OPEN_GENDER_STAT_SIDEBAR';
+
 // reducer name
 export const RATING = 'rating';

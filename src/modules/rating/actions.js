@@ -42,3 +42,17 @@ export function highlighEnrolment(enrolmentId) {
     }
   };
 }
+
+export const toggleHelperSidebar = (isOpen = true) => () => ({
+  type: types.OPEN_HELP_SIDEBAR,
+  payload: {
+    isOpen
+  }
+});
+
+export const toggleGenderStatSidebar = (isOpen = true) => () => ({
+  type: types.OPEN_GENDER_STAT_SIDEBAR,
+  payload: {
+    isOpen
+  }
+});
