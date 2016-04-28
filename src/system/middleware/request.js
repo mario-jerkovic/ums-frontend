@@ -1,6 +1,6 @@
 import * as requestAjax from 'superagent';
 import {REQUEST_API} from '../constants';
-import isFunction from 'lodash/isFunction';
+import isFunction from 'lodash/fp/isFunction';
 import {dispatchAction} from './helpers';
 
 /**

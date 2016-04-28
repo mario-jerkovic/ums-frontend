@@ -5,7 +5,7 @@ import {stack as Menu} from 'react-burger-menu';
 export default class HelpSideBar extends Component {
   
   static PropTypes = {
-    closeHelperSidebar: React.PropTypes.func.isRequired,
+    close: React.PropTypes.func.isRequired,
     isOpen: React.PropTypes.bool.isRequired
   };
   

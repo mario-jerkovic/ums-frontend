@@ -1,29 +1,32 @@
 'use strict';
 
-import React, {Component, PropTypes} from 'react';
+import React, {Component, PropTypes} from 'react'
 import HelpSideBar from './HelpSideBar'
+import StatSideBar from './StatSideBar'
 import HelpBtn from './HelpBtn'
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import StatBtn from './StatBtn'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
 import {toggleHelperSidebar, toggleGenderStatSidebar} from '../actions'
-
 import '../styles/side-bar-right.styl'
 
 class Rating extends React.Component {
   render() {
     console.log('this.props', this.props);
-    const { SpecofferChooser, RatingList, SearchEnrolment } = this.props;
+    const { SpecofferChooser, RatingList, SearchEnrolment, specofferId } = this.props;
     const { openHelperSidebar, closeHelperSidebar, helpIsOpen } = this.props;
-    // const { openGenderStatSidebar, closeGenderStatSidebar, genderStatIsOpen } = this.props;
+    const { openGenderStatSidebar, closeGenderStatSidebar, genderStatIsOpen } = this.props;
 
     return (
       <div className="rating">
         <HelpSideBar isOpen={helpIsOpen} close={closeHelperSidebar} />
+        <StatSideBar isOpen={genderStatIsOpen} close={closeGenderStatSidebar} specofferId={specofferId}/>
         <div className="rating__specoffer-chooser">
           {SpecofferChooser}
         </div>
         <div className="rating__rating-list">
-          <HelpBtn openHelperSidebar={openHelperSidebar}/>
+          <HelpBtn openSidebar={openHelperSidebar}/>
+          {specofferId && <StatBtn openSidebar={openGenderStatSidebar}/>}
           <div>{SearchEnrolment}</div>
           <div>{RatingList}</div>
         </div>
@@ -32,16 +35,17 @@ class Rating extends React.Component {
   }
 }
 
-export default connect((state) => {
+export default connect((state, ownProps) => {
   return {
     helpIsOpen: state.rating.sideBar.helpIsOpen,
     genderStatIsOpen: state.rating.sideBar.genderStatIsOpen,
+    specofferId: ownProps.location.query.specofferId,
   }
 }, (dispath) => {
   return bindActionCreators({
     openHelperSidebar: toggleHelperSidebar(),
     closeHelperSidebar: toggleHelperSidebar(false),
-    openGenderStatSidebar: toggleGenderStatSidebar,
+    openGenderStatSidebar: toggleGenderStatSidebar(),
     closeGenderStatSidebar: toggleGenderStatSidebar(false),
   }, dispath)
 })(Rating)

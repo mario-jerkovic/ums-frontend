@@ -12,20 +12,15 @@ import { loadStatistics } from '../actions';
 import { fillMapWithData } from '../helpers';
 import ChartDataTable from '../components/ChartDataTable'
 import Loader from 'loader'
+import isFunction from 'lodash/fp/isFunction'
 
 class Chart extends Component {
-  static propTypes = {
-    children: PropTypes.any,
-    dispatch: PropTypes.func,
-    config: PropTypes.object.isRequired,
-    chartId: PropTypes.string.isRequired,
-    amChartConfig: PropTypes.object.isRequired,
-    dataProvider: PropTypes.object.isRequired
-  };
 
   componentDidMount() {
-    this.props.getChartData(this.props.chartId);
+    let { chartId, requestParams} = this.props;
+    this.props.getChartData(chartId, requestParams);
   }
+
   componentWillUnmount() {
     AmCharts.clear();
   }
@@ -52,15 +47,18 @@ class Chart extends Component {
    * amChartConfig - predefined configs (from constants) for amChart
    */
   _renderChart() {
-    let { dataProvider, chartId } = this.props;
-    let { amChartConfig }  = this.props.config;
+    let { dataProvider: {data}, chartId } = this.props;
+    let { amChartConfig, processData }  = this.props.config;
+    if (processData) {
+      data = processData(data)
+    }
     if (amChartConfig.type === 'map') {
       AmCharts.maps.ukraineLow = ukraineLow;
-      amChartConfig.listeners[0].method = fillMapWithData(dataProvider.data);
+      amChartConfig.listeners[0].method = fillMapWithData(data);
       AmCharts.makeChart(chartId, amChartConfig);
       return;
     }
-    amChartConfig.dataProvider = dataProvider.data;
+    amChartConfig.dataProvider = data;
     AmCharts.makeChart(chartId, amChartConfig);
   }
 
@@ -78,6 +76,15 @@ class Chart extends Component {
   }
 }
 
+Chart.propTypes = {
+  children: PropTypes.any,
+  dispatch: PropTypes.func,
+  config: PropTypes.object.isRequired,
+  chartId: PropTypes.string.isRequired,
+  amChartConfig: PropTypes.object.isRequired,
+  dataProvider: PropTypes.object.isRequired,
+  specofferId: PropTypes.string
+};
 /**
  *
  * @returns dataProvider - data for chart
@@ -96,10 +103,15 @@ const mapStateToChartFactory = (state, ownProps) => {
 
 const mapDispatchToChartFactory = (dispatch) => {
   return {
-    getChartData: (chartId) => {
+    getChartData: (chartId, requestParams) => {
       // get collection name for case then there are two chart depends on one API
       let collectionName = map[chartId].callApi.collectionName || chartId;
-      dispatch(loadStatistics(map[chartId].callApi.url, collectionName))
+      let onSuccess = map[chartId].callApi.onSuccess;
+      let { url } = map[chartId].callApi;
+      if (isFunction(url)) {
+        url = url(requestParams)
+      }
+      dispatch(loadStatistics(url, collectionName, onSuccess))
     }
   };
 };

@@ -1,3 +1,5 @@
+import {normalizeGenderStat} from './helpers'
+
 // ACTION TYPES
 export const STATISTICS_LOAD_START = 'STATISTICS_LOAD_START';
 export const STATISTICS_LOAD_SUCCESS = 'STATISTICS_LOAD_SUCCESS';
@@ -9,6 +11,7 @@ export const ALLOCATIONS_ADMINUNITS = 'ALLOCATIONS_ADMINUNITS';
 export const ALLOCATIONS_ADMINUNITS_MAP = 'ALLOCATIONS_ADMINUNITS_MAP';
 export const ALLOCATIONS_DEPARTMENTS = 'ALLOCATIONS_DEPARTMENTS';
 export const PLACES = 'PLACES';
+export const GENDER = 'GENDER';
 
 /**
  * callApi - info for fetching data from a server
@@ -258,5 +261,29 @@ export const STATISTICS_MAP = {
         enabled: true
       }
     }
-  }
+  },
+  [GENDER]: {
+    callApi: {
+      url: ({specofferId}) => `/stats/{{timePeriodId}}/specoffers/${specofferId}/genders`,
+      params: {},
+      cache: true,
+      cacheTime: 300
+    },
+    processData: normalizeGenderStat,
+    title: 'Гендерна статистика',
+    amChartConfig: {
+      type: 'pie',
+      theme: 'light',
+      dataProvider: null,
+      valueField: 'value',
+      titleField: 'key',
+      balloon: {
+        fixedPosition: true
+      },
+      export: {
+        enabled: true
+      }
+    }
+  },
 };
+

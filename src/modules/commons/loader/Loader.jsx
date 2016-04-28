@@ -26,7 +26,7 @@ Loader.propTypes = {
   isLoading: React.PropTypes.bool.isRequired,
   children: React.PropTypes.any,
   className: React.PropTypes.string,
-  isPageLoader: React.PropTypes.boolean
+  isPageLoader: React.PropTypes.bool
 };
 
 export default Loader

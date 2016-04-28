@@ -11,7 +11,8 @@ const statisticsInitialState = {
   [types.PRIORITIES]: statisticsOneElementState,
   [types.ALLOCATIONS_ADMINUNITS]: statisticsOneElementState,
   [types.ALLOCATIONS_DEPARTMENTS]: statisticsOneElementState,
-  [types.PLACES]: statisticsOneElementState
+  [types.PLACES]: statisticsOneElementState,
+  [types.GENDER]: statisticsOneElementState,
 };
 
 export default function (state = statisticsInitialState, action = {}) {
