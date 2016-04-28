@@ -11,7 +11,6 @@ export default function sideBar(state = initialSideBarState, action = {}) {
       return Object.assign({}, state, {helpIsOpen: action.payload.isOpen});
 
     case types.OPEN_GENDER_STAT_SIDEBAR:
-      console.log('OPEN_GENDER_STAT_SIDEBAR', action);
       return Object.assign({}, state, {genderStatIsOpen: action.payload.isOpen});
     
     default:

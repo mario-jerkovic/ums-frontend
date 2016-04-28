@@ -17,10 +17,8 @@ export default class StatSideBar extends Component {
   };
 
   render() {
-    console.log('HelpSideBar: ', this.props);
     let { isOpen, specofferId } = this.props;
     let chartId = types.GENDER;
-    console.log('specofferId--', specofferId);
     return (
       <Menu right onStateChange={this.stateChanged}  isOpen={isOpen} width={700}>
         {isOpen &&

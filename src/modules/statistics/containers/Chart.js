@@ -108,8 +108,6 @@ const mapDispatchToChartFactory = (dispatch) => {
       if (isFunction(url)) {
         url = url(requestParams)
       }
-      console.log('url', url);
-      console.log('collectionName', collectionName);
       dispatch(loadStatistics(url, collectionName))
     }
   };

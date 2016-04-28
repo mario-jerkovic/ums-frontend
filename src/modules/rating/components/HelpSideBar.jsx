@@ -16,7 +16,6 @@ export default class HelpSideBar extends Component {
   };
 
   render() {
-    console.log('HelpSideBar: ', this.props);
     return (
       <Menu right onStateChange={this.stateChanged}  isOpen={this.props.isOpen} width={300}>
         <div>

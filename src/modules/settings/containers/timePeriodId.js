@@ -23,12 +23,8 @@ class TimePeriodId extends Component {
   }
 
   render() {
-
     let { isDictLoadedProp, timeperiods, timePeriodId } = this.props;
-    console.log('isDictLoadedProp', isDictLoadedProp);
-    console.log('timeperiods', timeperiods);
-    console.log('timePeriodId', timePeriodId);
-    console.log('timePeriodId', typeof timePeriodId);
+    
     const optionList = timeperiods.map((item, i) => {
       return <option value={i} key={i}>{item}</option>;
     });

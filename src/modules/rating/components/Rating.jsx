@@ -12,7 +12,6 @@ import '../styles/side-bar-right.styl'
 
 class Rating extends React.Component {
   render() {
-    console.log('this.props', this.props);
     const { SpecofferChooser, RatingList, SearchEnrolment, specofferId } = this.props;
     const { openHelperSidebar, closeHelperSidebar, helpIsOpen } = this.props;
     const { openGenderStatSidebar, closeGenderStatSidebar, genderStatIsOpen } = this.props;
