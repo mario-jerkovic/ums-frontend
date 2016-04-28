@@ -1,6 +1,5 @@
 import * as types from '../constants';
 import {SPECOFFERS_FIELD_NAMES} from '../constants';
-import {LOCATION_CHANGE} from 'react-router-redux';
 
 import lcache from '../../../system/lcache';
 import { TIMEPERIODID_CHANGED } from '../../settings/duck';
@@ -9,7 +8,6 @@ const defaultState = {
   isLoading: false,
   resources: [],
   specoffersFieldNames: SPECOFFERS_FIELD_NAMES,
-  timePeriodId: lcache.get('timePeriodId') || 8,
   filterByName: '',
   limit: 300,
   error: null
@@ -40,13 +38,6 @@ export default function list(state = defaultState, action = {}) {
           resources: []
         }
       );
-
-    case LOCATION_CHANGE: // listen to query parameters changes
-      //if (action.payload.pathname !== '/specoffers') return state;
-      let {
-        timePeriodId = state.timePeriodId,
-        limit = state.limit } = action.payload.query;
-      return Object.assign({}, state, {timePeriodId, limit});
 
     case types.SPECOFFERS_LIST_WIDTH_CHANGED:
       let changedName = {

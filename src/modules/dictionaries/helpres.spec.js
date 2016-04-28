@@ -94,11 +94,6 @@ describe('dictionary helper', () => {
         }
       }).should.equal(true)
     });
-    
-    it('should return "false" if one of dictionaries is absent', () => {
-      isDictLoaded([], {}).should.equal(false)
-    });
-
   });
 
 

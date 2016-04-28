@@ -37,7 +37,8 @@ export default store => next => action => {
   }
 
   const {backendHost, token}= store.getState().config;
-  const {url, headers={}, method='get', params} = request;
+  const {url, headers={}, method='get'} = request;
+  let {params} = request;
   const {start, success, fail} = request.actions;
   const sendType = method === 'get' ? 'query' : 'send';
   dispatchAction(store.dispatch, start, {payload: payload});
@@ -49,6 +50,10 @@ export default store => next => action => {
   Object
     .keys(headers)
     .forEach(key=>currentRequest.set(key, headers[key]));
+
+  if (isFunction(params)) {
+    params = params(store)
+  }
 
   currentRequest[sendType](params)
     .end((error, response) => {
