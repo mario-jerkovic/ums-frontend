@@ -14,10 +14,6 @@ import Loader from 'loader'
 
 class TimePeriodId extends Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     this.props.loadDictionaries([TIMEPERIODS]);
   }
@@ -29,16 +25,16 @@ class TimePeriodId extends Component {
   render() {
 
     let { isDictLoadedProp, timeperiods, timePeriodId } = this.props;
-
-    if (!isDictLoadedProp) {
-      return <Loader className="body" isLoading />
-    }
-
+    console.log('isDictLoadedProp', isDictLoadedProp);
+    console.log('timeperiods', timeperiods);
+    console.log('timePeriodId', timePeriodId);
+    console.log('timePeriodId', typeof timePeriodId);
     const optionList = timeperiods.map((item, i) => {
       return <option value={i} key={i}>{item}</option>;
     });
 
     return (
+    <Loader className="body" isLoading={!isDictLoadedProp}>
       <FormGroup controlId="formControlsSelect">
         <ControlLabel>Оберіть вступну кампанію</ControlLabel>
         <FormControl componentClass="select" placeholder="Оберіть вступну кампанію"
@@ -46,13 +42,19 @@ class TimePeriodId extends Component {
           { optionList }
         </FormControl>
       </FormGroup>
+    </Loader>
     );
   }
 }
 
 
 TimePeriodId.propTypes = {
-  children: PropTypes.any
+  children: PropTypes.any,
+  isDictLoadedProp: PropTypes.bool.isRequired,
+  timeperiods: PropTypes.arrayOf(PropTypes.string).isRequired,
+  timePeriodId: PropTypes.string.isRequired,
+  sendTimePeriodId: PropTypes.func.isRequired,
+  loadDictionaries: PropTypes.func.isRequired,
 };
 
 export const mapStateToSettings = createSelector(
@@ -61,7 +63,7 @@ export const mapStateToSettings = createSelector(
   (dictionaries, timePeriodId) => ({
     isDictLoadedProp: isDictLoaded([TIMEPERIODS], dictionaries),
     timeperiods: dictionaries[TIMEPERIODS].resourcesMap,
-    timePeriodId: timePeriodId
+    timePeriodId: timePeriodId.toString()
   })
 );
 

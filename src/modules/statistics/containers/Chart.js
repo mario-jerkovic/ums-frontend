@@ -77,11 +77,9 @@ class Chart extends Component {
 }
 
 Chart.propTypes = {
-  children: PropTypes.any,
   dispatch: PropTypes.func,
   config: PropTypes.object.isRequired,
   chartId: PropTypes.string.isRequired,
-  amChartConfig: PropTypes.object.isRequired,
   dataProvider: PropTypes.object.isRequired,
   specofferId: PropTypes.string
 };
@@ -106,12 +104,13 @@ const mapDispatchToChartFactory = (dispatch) => {
     getChartData: (chartId, requestParams) => {
       // get collection name for case then there are two chart depends on one API
       let collectionName = map[chartId].callApi.collectionName || chartId;
-      let onSuccess = map[chartId].callApi.onSuccess;
       let { url } = map[chartId].callApi;
       if (isFunction(url)) {
         url = url(requestParams)
       }
-      dispatch(loadStatistics(url, collectionName, onSuccess))
+      console.log('url', url);
+      console.log('collectionName', collectionName);
+      dispatch(loadStatistics(url, collectionName))
     }
   };
 };
