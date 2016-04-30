@@ -36,8 +36,8 @@ class Rating extends React.Component {
 
 export default connect((state, ownProps) => {
   return {
-    helpIsOpen: state.rating.sideBar.helpIsOpen,
-    genderStatIsOpen: state.rating.sideBar.genderStatIsOpen,
+    helpIsOpen: state.rating.sidebar.helpIsOpen,
+    genderStatIsOpen: state.rating.sidebar.genderStatIsOpen,
     specofferId: ownProps.location.query.specofferId,
   }
 }, (dispath) => {

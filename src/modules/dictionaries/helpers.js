@@ -1,6 +1,7 @@
 import forEach from 'lodash/forEach';
 import isObject from 'lodash/isObject';
 import isString from 'lodash/isString';
+import * as consts from './constants';
 
 /**
  * check whether a specific distionaries is loaded
@@ -10,7 +11,7 @@ import isString from 'lodash/isString';
  */
 export function isDictLoaded(listOfDict, dictState) {
   if (!listOfDict || !Array.isArray(listOfDict) && !isString(listOfDict)) {
-    throw new Error('list of dic {array of strings} || {sting} must be passed!');
+    throw new Error('isDictLoaded:', consts.errors.wrongListOfDic);
   }
 
   if (!dictState || !isObject(dictState)) {

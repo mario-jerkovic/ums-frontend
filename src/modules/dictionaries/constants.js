@@ -2,6 +2,9 @@ export const DICTIONARY_LOAD_START = 'DICTIONARY_LOAD_START';
 export const DICTIONARY_LOAD_SUCCESS = 'DICTIONARY_LOAD_SUCCESS';
 export const DICTIONARY_LOAD_FAIL = 'DICTIONARY_LOAD_FAIL';
 
+export const errors = {
+  wrongListOfDic: 'List of dic {array of strings} || {sting} must be passed!'
+}
 
 // COLLECTION NAMES
 export const DEPARTMENTS = 'DEPARTMENTS';
